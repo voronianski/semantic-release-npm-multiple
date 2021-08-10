@@ -1,4 +1,5 @@
 const requireReload = require('require-reload');
+const series = require('async/series');
 
 const reload = requireReload(require);
 
@@ -20,10 +21,10 @@ function getChildPlugin(registryName) {
 }
 
 function createCallbackWrapper(callbackName) {
-  return async ({ registries, ...pluginConfig }, context) => {
-    for (const [registryName, childConfig] of Object.entries(
-      registries || {}
-    )) {
+  return async ({ registries = {}, ...pluginConfig }, context) => {
+    const seriesTasks = Object.entries(registries).map(entry => async () => {
+      const [registryName, childConfig] = entry;
+
       const callback = getChildPlugin(registryName)[callbackName];
       if (!callback) {
         return;
@@ -53,11 +54,6 @@ function createCallbackWrapper(callbackName) {
         }
       }
 
-      console.log('---debug values start');
-      console.log(childEnv[registryVarName]);
-      console.log(childEnv[registryScopeVarName]);
-      console.log('---debug values end');
-
       // check for scoped registries and use it when it is available
       const scope = env[environmentVariablePrefix + registryScopeVarName];
       if (scope) {
@@ -72,7 +68,9 @@ function createCallbackWrapper(callbackName) {
         { ...childConfig, ...pluginConfig },
         { ...context, env: childEnv }
       );
-    }
+    });
+
+    await series(seriesTasks);
   };
 }
 

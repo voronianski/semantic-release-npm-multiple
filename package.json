@@ -26,6 +26,7 @@
   },
   "dependencies": {
     "@semantic-release/npm": "^7.0.6",
+    "async": "^3.2.1",
     "require-reload": "^0.2.2"
   }
 }
