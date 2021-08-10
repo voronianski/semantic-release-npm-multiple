@@ -37,17 +37,28 @@ function createCallbackWrapper(callbackName) {
       const { env } = context;
       const childEnv = { ...env };
 
+      const registryVarName = 'NPM_CONFIG_REGISTRY';
+
       for (const variableName of [
         'NPM_TOKEN',
         'NPM_USERNAME',
         'NPM_PASSWORD',
         'NPM_EMAIL',
-        'NPM_CONFIG_REGISTRY',
+        registryVarName,
       ]) {
         const overridenValue = env[environmentVariablePrefix + variableName];
         if (overridenValue) {
           childEnv[variableName] = overridenValue;
         }
+      }
+
+      // check for scoped registries and use it when it is available
+      const scopedRegistryVarName = 'NPM_CONFIG_@MY-SCOPE:REGISTRY';
+      const scopedRegistryVarValue =
+        env[environmentVariablePrefix + scopedRegistryVar];
+      if (scopedRegistryVarValue) {
+        delete childEnv[registryVarName];
+        childEnv[scopedRegistryVarName] = scopedRegistryVarValue;
       }
 
       await callback(

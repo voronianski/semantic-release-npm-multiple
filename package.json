@@ -1,9 +1,9 @@
 {
-  "name": "@amanda-mitchell/semantic-release-npm-multiple",
-  "version": "1.0.0",
+  "name": "@voronianki/semantic-release-npm-multiple",
+  "version": "1.0.1",
   "description": "A semantic release plugin to publish an NPM package to multiple registries.",
   "main": "index.js",
-  "repository": "https://github.com/amanda-mitchell/semantic-release-npm-multiple",
+  "repository": "https://github.com/voronianki/semantic-release-npm-multiple",
   "author": "Amanda Mitchell <she@mandymitchell.me>",
   "license": "MIT",
   "files": [
