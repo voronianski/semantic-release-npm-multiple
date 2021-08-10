@@ -9,9 +9,6 @@
   "files": [
     "index.js"
   ],
-  "publishConfig": {
-    "access": "public"
-  },
   "keywords": [
     "npm",
     "publish",
