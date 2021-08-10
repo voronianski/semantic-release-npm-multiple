@@ -2,10 +2,12 @@
 
 This is a thin wrapper around the [@semantic-release/npm](https://github.com/semantic-release/npm) plugin for [Semantic Release](https://semantic-release.gitbook.io/semantic-release/) that allows it to be called multiple times, which can be useful if you need to publish to multiple NPM registries simultaneously.
 
+It's a fork of https://github.com/amanda-mitchell/semantic-release-npm-multiple package but with support of scoped registries.
+
 ## Installation
 
 ```
-yarn add --dev @amanda-mitchell/semantic-release-npm-multiple
+yarn add --dev semantic-release-npm-multiple-scoped
 ```
 
 ## Usage
