@@ -57,7 +57,7 @@ function createCallbackWrapper(callbackName) {
       // check for scoped registries and use it when it is available
       const scope = env[environmentVariablePrefix + registryScopeVarName];
       if (scope) {
-        const scopedRegistryVarName = `NPM_CONFIG_${scope}:REGISTRY`;
+        const scopedRegistryVarName = `NPM_CONFIG_${scope.toUpperCase()}:REGISTRY`;
         const scopedRegistryVarValue = env[scopedRegistryVarName];
         childEnv[scopedRegistryVarName] = scopedRegistryVarValue;
 
