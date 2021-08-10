@@ -38,6 +38,7 @@ function createCallbackWrapper(callbackName) {
       const childEnv = { ...env };
 
       const registryVarName = 'NPM_CONFIG_REGISTRY';
+      const registryScopeVarName = 'REGISTRY_SCOPE';
 
       for (const variableName of [
         'NPM_TOKEN',
@@ -52,13 +53,19 @@ function createCallbackWrapper(callbackName) {
         }
       }
 
+      console.log('---debug values start');
+      console.log(childEnv[registryVarName]);
+      console.log(childEnv[registryScopeVarName]);
+      console.log('---debug values end');
+
       // check for scoped registries and use it when it is available
-      const scopedRegistryVarName = 'NPM_CONFIG_@MY-SCOPE:REGISTRY';
-      const scopedRegistryVarValue =
-        env[environmentVariablePrefix + scopedRegistryVarName];
-      if (scopedRegistryVarValue) {
-        delete childEnv[registryVarName];
+      const scope = env[environmentVariablePrefix + registryScopeVarName];
+      if (scope) {
+        const scopedRegistryVarName = `NPM_CONFIG_${scope}:REGISTRY`;
+        const scopedRegistryVarValue = env[scopedRegistryVarName];
         childEnv[scopedRegistryVarName] = scopedRegistryVarValue;
+
+        delete childEnv[registryVarName];
       }
 
       await callback(

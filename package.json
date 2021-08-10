@@ -1,6 +1,6 @@
 {
   "name": "semantic-release-npm-multiple-scoped",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A semantic release plugin to publish an NPM package to multiple registries.",
   "main": "index.js",
   "repository": "https://github.com/voronianki/semantic-release-npm-multiple",
